@@ -1,0 +1,9 @@
+streamlit
+ollama
+duckduckgo-search
+httpx
+python-dotenv
+Pillow
+PyPDF2
+sentence-transformers
+chromadb
