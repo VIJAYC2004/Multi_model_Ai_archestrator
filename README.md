@@ -1,19 +1,35 @@
- How to run
-Install and start Ollama (follow their docs, then):​
+Multi‑Modal AI Archestrator 
+
+A research‑assistant‑style AI that answers user queries using **live web search** and **local document RAG** (PDF/TXT/MD), with a Perplexity‑inspired UI. It supports **text, audio, images, video, and files** as inputs, routes tasks automatically (general/code/math), and queries **multiple local LLMs** (Llama, Mistral, Qwen, DeepSeek) via Ollama for a single summarized answer.
+
+## Key Features
+
+- Web search tab with live DuckDuckGo + page fetching and citations.  
+- Documents (RAG) tab for indexing and querying your own PDFs/TXTs locally.  
+- Multi‑model orchestration with task‑based model selection and answer aggregation.  
+- Perplexity‑style chat UI with sources box, answer‑style modes, and follow‑up suggestions.  
+- Fully local and open‑source: no cloud API keys, everything runs on your machine.
+
+## Tech Stack
+
+- **Frontend / UI**: Streamlit  
+- **LLMs**: Ollama (local models via `ollama` Python client)  
+- **Search & RAG**: `ddgs` (DuckDuckGo) + `httpx` + `PyPDF2` + `sentence‑transformers` + `chromadb`  
+- **Utils**: `asyncio`, `httpx`, `Pillow`
+
+## How to Run
+
+1. Install Ollama and pull models:
+   ```bash
+   ollama pull llama3.2:latest
+   ollama pull mistral:latest
+   ollama pull qwen2.5:7b
+   ollama pull deepseek-r1:7b
+Start Ollama:
 
 bash
-# examples – you can change models if you want
-ollama pull llama3.2:latest
-ollama pull mistral:latest
-ollama pull qwen2.5:7b-instruct
-ollama pull deepseek-r1:7b
-
-
-ollama pull qwen2.5-coder:7b
-ollama pull qwen2.5:7b-math
-
 ollama serve
-Install Python deps:
+Install Python dependencies:
 
 bash
 cd multi_llm_websearch_app
@@ -21,19 +37,16 @@ pip install -r requirements.txt
 Run the app:
 
 bash
-
 python -m streamlit run app.py
+Open http://localhost:8501 in your browser.
 
-Open the URL Streamlit prints (usually http://localhost:8501), ask a question, and the app will:
+Files
+app.py – main UI with two tabs: Web + Multi‑LLM and My Documents (RAG).
 
-search the internet,
+orchestrator.py – multi‑model + web search orchestration.
 
-fetch top pages,
+models_config.py – model definitions, task routing, and aggregator selection.
 
-send the context to multiple local models,
+multimodal_utils.py – handling audio, images, video, and file inputs.
 
-show a single summarized answer.
-
-If you want to extend this (logging to DB, rate limiting, or connecting your Flutter app instead of Streamlit), that can be added on top of this structure without changing the core orchestration.
-
-iam vijay 
+rag_store.py – PDF/TXT indexing and RAG querying with Chroma and embeddings
