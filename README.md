@@ -1,4 +1,4 @@
-Multi‑Modal AI Archestrator 
+## Multi‑Modal AI Archestrator 
 
 A research‑assistant‑style AI that answers user queries using **live web search** and **local document RAG** (PDF/TXT/MD), with a Perplexity‑inspired UI. It supports **text, audio, images, video, and files** as inputs, routes tasks automatically (general/code/math), and queries **multiple local LLMs** (Llama, Mistral, Qwen, DeepSeek) via Ollama for a single summarized answer.
 
